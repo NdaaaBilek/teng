@@ -2,7 +2,7 @@
 const {
     downloadContentFromMessage
 } = require("@WhiskeySockets/baileys")
-const Baileys = require("@adiwajshing/baileys")
+const Baileys = require("WhiskeySockets/baileys")
 const { color, bgcolor } = require('../lib/color')
 const { serialize, getBuffer, fetchJson, fetchText, getRandom,
         getGroupAdmins, runtime, sleep, generateProfilePicture,
