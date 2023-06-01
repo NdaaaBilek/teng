@@ -1,8 +1,8 @@
 "use strict";
 const {
     downloadContentFromMessage
-} = require("@WhiskeySockets/baileys")
-const Baileys = require("WhiskeySockets/baileys")
+} = require("@whiskeysockets/baileys")
+const Baileys = require("@whiskeysockets/baileys")
 const { color, bgcolor } = require('../lib/color')
 const { serialize, getBuffer, fetchJson, fetchText, getRandom,
         getGroupAdmins, runtime, sleep, generateProfilePicture,
