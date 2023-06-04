@@ -3297,42 +3297,23 @@ kamu bisa Donasi melalui Kode Qris di atas, minimal Donasi Rp1.000 agar hasil do
                      limitAdd(sender, limit)
                    }).catch((e) => reply(mess.error.api))
                    break
-                case prefix+'cecan': case prefix+'cewek':
-                   if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                   reply(mess.wait)
-                   addCountCmd('#cecan', sender, _cmd)
-                   var query = ["cecan hd","cecan indo","cewe cantik", "cewe aesthetic", "cecan aesthetic"]
-                   var data = await pinterest(pickRandom(query))
-                   var but = [{ buttonId: command, buttonText: { displayText: 'Next Photo' }, type: 1 }]
-                   conn.sendMessage(from, { caption: "Random Cewe Cantik", image: { url: pickRandom(data.result) }, buttons: but, footer: 'Pencet tombol dibawah untuk foto selanjutnya', headerType: 'IMAGE' }, { quoted: msg })
-                   limitAdd(sender, limit)
-                   break
-                case prefix+'cogan': case prefix+'cowok':
-                   if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-                   reply(mess.wait)
-                   addCountCmd('#cogan', sender, _cmd)
-                   var query = ["cogan hd","cogan indo","cowo ganteng","handsome boy","hot boy","oppa","cowo aesthetic","cogan aesthetic"]
-                   var data = await pinterest(pickRandom(query))
-                   var but = [{ buttonId: command, buttonText: { displayText: 'Next Photo' }, type: 1 }]
-                   conn.sendMessage(from, { caption: "Random Cowo Ganteng", image: { url: pickRandom(data.result) }, buttons: but, footer: 'Pencet tombol dibawah untuk foto selanjutnya', headerType: 'IMAGE' }, { quoted: msg })
-                   limitAdd(sender, limit)
-                   break
                 case prefix+'waifu':
                    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                    reply(mess.wait)
                    addCountCmd('#waifu', sender, _cmd)
                    var data = (await axios.get('https://waifu.pics/api/sfw/waifu')).data.url
                    var but = [{ buttonId: command, buttonText: { displayText: 'Next Photo' }, type: 1 }]
-                   conn.sendMessage(from, { caption: "Random Waifu", image: { url: data }, buttons: but, headerType: 'IMAGE', footer: 'Pencet tombol dibawah untuk foto selanjutnya' }, { quoted: msg })
+                   conn.sendMessage(from, { image: { url: data } }, { quoted: msg })
                    limitAdd(sender, limit)
                    break
                 case prefix+'meme': case prefix+'memeindo':
                    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                    reply(mess.wait)
                    addCountCmd('#meme', sender, _cmd)
-                   var meme = await getBuffer(`https://api.lolhuman.xyz/api/meme/memeindo?apikey=${lolkey}`)
+                   var data = await getBuffer(`https://api.lolhuman.xyz/api/meme/memeindo?apikey=${lolkey}`)
                    var mbut = [{ buttonId: command, buttonText: { displayText: 'Next Photo' }, type: 1 }]
-                   conn.sendMessage(from, { caption: "Random Meme", image: meme, buttons: mbut, headerType: 'IMAGE', footer: 'Pencet tombol dibawah untuk foto selanjutnya' }, { quoted: msg })
+                   //conn.sendMessage(from, { caption: "Random Meme", image: meme, buttons: mbut, headerType: 'IMAGE', footer: 'Pencet tombol dibawah untuk foto selanjutnya' }, { quoted: msg })
+                   conn.sendMessage(from, { image: { url: data } }, { quoted: msg })
                    limitAdd(sender, limit)
                    break
                 case prefix+'dark': case prefix+'darkjoke': case prefix+'darkjokes':
@@ -3596,23 +3577,6 @@ Untuk mengambil Audio/Video dari hasil pencarian`
                      addPlayGame(from, 'Kuis Game', jawab, gamewaktu, res, kuis)
                      gameAdd(sender, glimit)
                    })
-                   break
-                case prefix+'tebaklagu': case prefix+'tl':
-                   if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
-                   if (isPlayGame(from, tebaklagu)) return conn.reply(from, `Masih ada game yang belum diselesaikan`, tebaklagu[getGamePosi(from, tebaklagu)].msg)
-                   addCountCmd('#tebaklagu', sender, _cmd)
-                   require('../lib/tebaklagu').tebaklagu().then( data => {
-                     conn.sendPresenceUpdate('recording', from)
-                     var { preview, title} = data.result
-                     var teks = `*TEBAK LAGU*\n\n`+monospace(`Petunjuk : ${title.replace(/[b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|y|z]/gi, '_')}\nWaktu : ${gamewaktu}s`)
-                     conn.sendMessage(from, { audio: { url: preview }, mimetype: 'audio/mp4', ptt: true }, { quoted: msg, messageId: 'BAE5'+makeid(10).toUpperCase()+'TL' })
-                     .then( res => {
-                       conn.sendMessage(from, { text: teks }, { quoted: res })
-                       var jawab = title.toLowerCase()
-                       addPlayGame(from, 'Tebak Lagu', jawab, gamewaktu, res, tebaklagu)
-                       gameAdd(sender, glimit)
-                     })
-                   }).catch(() => reply(mess.error.api))
                    break
                 case prefix+'delgame': case prefix+'deletegame':
                 case prefix+'dellgame': case prefix+'nyerah':
